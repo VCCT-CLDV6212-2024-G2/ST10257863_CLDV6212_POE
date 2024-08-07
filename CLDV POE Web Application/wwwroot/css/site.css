@@ -24,15 +24,6 @@ html {
     min-height: 100%;
 }
 
-body {
-    margin: 0;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    font-family: 'Inter', sans-serif;
-}
-
 /* Navbar */
 .navbar {
     position: fixed;
@@ -46,13 +37,55 @@ body {
     z-index: 1000; /* Ensure navbar is above other content */
 }
 
-/* Adjust body margin to account for fixed navbar */
-body > .content {
-    margin-top: 50px; /* Adjust based on navbar height */
-    flex: 1;
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f1f1f1; /* Adjust as needed */
+    padding: 10px;
+    text-align: left;
+    border-top: 1px solid #ddd; /* Optional border for visual separation */
+}
+
+
+
+body {
+    margin: 0;
+    background-color: #FFFFFF;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    font-family: 'Inter', sans-serif;
+}
+
+    body > .content {
+        margin-top: 50px; /* Adjust based on navbar height */
+        justify-content: center;
+        align-items: center;
+        width: 100%; /* Ensures content takes full width */
+        max-width: 500px;
+        box-sizing: border-box;
+    }
+
+.center-frame {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    padding: 68px 0; /* Removed side padding to fit exactly within the screen width */
+    gap: 20px;
+    max-width: 500px;
+    width: 100%; /* Ensures container width scales with its parent */
+    background: #F5F5F5;
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
 /* Frame Container */
@@ -63,7 +96,7 @@ body > .content {
     padding: 68px 5%;
     gap: 20px;
     max-width: 500px;
-    width: 90%;
+    width: 100%;
     background: #F5F5F5;
     border-radius: 10px;
     box-sizing: border-box;
@@ -100,14 +133,24 @@ body > .content {
         box-sizing: border-box;
     }
 
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    width: 100%; /* Full width to accommodate buttons */
+    gap: 20px; /* Space between buttons */
+}
+
 /* Button */
 .button {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 12px 24px;
-    width: 60%;
-    max-width: 200px;
+    width: 100%; /* Full width within its container */
+    max-width: 200px; /* Maximum width */
     background: #5A5A5A;
     border: 1px solid #757575;
     border-radius: 10px;
@@ -116,5 +159,6 @@ body > .content {
     font-size: 14px;
     cursor: pointer;
     text-align: center;
+    box-sizing: border-box; /* Ensures padding and border are included in width */
     margin-top: 20px;
 }
