@@ -1,11 +1,19 @@
-﻿@{
-	ViewData["Title"] = "Home Page";
-}
-<h1>@ViewData["Title"]</h1>
-
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/CLDV_POE_Web_Application.styles.css" asp-append-version="true" />
+</head>
 <body>
+	<h1>@ViewData["Title"]</h1>
+
 	<div class="center-frame">
 		<div class="frame-container">
+			<!-- Input Fields -->
 			<div class="input-field">
 				<label for="firstName">First Name</label>
 				<input type="text" id="firstName" name="firstName" placeholder="First Name">
@@ -23,12 +31,26 @@
 				<input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number">
 			</div>
 
-			<button class="button">Add Profile</button>
-			<div class="button-container">
-				<button class="button">Add Picture</button>
-				<button class="button">Add File</button>
+			<!-- Container for Forms and Button -->
+			<div class="forms-buttons-container">
+				<!-- File Upload Forms -->
+				<div class="file-upload-container">
+					<!-- Form for Uploading an Image -->
+					<form asp-action="UploadImage" method="post" enctype="multipart/form-data" class="file-upload-form">
+						<input type="file" name="file" value="Select Image" />
+						<button type="submit" class="button">Upload Image</button>
+					</form>
+
+					<!-- Form for Uploading a Contract -->
+					<form asp-action="UploadContract" method="post" enctype="multipart/form-data" class="file-upload-form">
+						<input type="file" name="file" value="Select Contract" />
+						<button type="submit" class="button">Upload Contract</button>
+					</form>
+				</div>
 			</div>
+			<!-- Add Profile Button -->
+			<button class="button">Add Profile</button>
 		</div>
 	</div>
-
 </body>
+</html>

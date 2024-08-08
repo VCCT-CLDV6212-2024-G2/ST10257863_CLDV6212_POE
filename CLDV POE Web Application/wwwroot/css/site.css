@@ -47,20 +47,17 @@ html {
     border-top: 1px solid #ddd; /* Optional border for visual separation */
 }
 
-
-
 body {
     margin: 0;
     background-color: #FFFFFF;
     display: flex;
     justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
     height: 100vh; /* Full viewport height */
     font-family: 'Inter', sans-serif;
+    padding-top: 60px;
 }
 
     body > .content {
-        margin-top: 50px; /* Adjust based on navbar height */
         justify-content: center;
         align-items: center;
         width: 100%; /* Ensures content takes full width */
@@ -68,13 +65,15 @@ body {
         box-sizing: border-box;
     }
 
+/* Center Frame Container */
 .center-frame {
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    height: 100vh; /* Full viewport height */
+    height: 100%; /* Full height based on body */
 }
 
+/* Centered Container */
 .centered-container {
     display: flex;
     flex-direction: column;
@@ -132,6 +131,68 @@ body {
         margin-top: 5px;
         box-sizing: border-box;
     }
+
+/* Container for Forms and Button */
+.forms-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 20px; /* Space between forms and button */
+    width: 100%;
+    align-items: flex-start; /* Align forms and button to the top */
+}
+
+/* File Upload Container */
+.file-upload-container {
+    display: flex;
+    flex-direction: row; /* Align forms horizontally */
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 20px; /* Space between forms */
+    width: auto; /* Adjust width as needed */
+}
+
+/* File Upload Forms */
+.file-upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center file input and button */
+    gap: 10px; /* Space between file input and submit button */
+    width: 200px; /* Fixed width for forms */
+}
+
+    .file-upload-form input[type="file"] {
+        border: 1px solid #757575;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 100%; /* Full width */
+        box-sizing: border-box;
+        text-align: center; /* Center file input text */
+        cursor: pointer; /* Show pointer cursor */
+    }
+
+        .file-upload-form input[type="file"]::-webkit-file-upload-button {
+            visibility: hidden; /* Hide default file upload button */
+        }
+
+        .file-upload-form input[type="file"]::before {
+            content: 'Choose File'; /* Custom text */
+            display: inline-block;
+            background: #F5F5F5;
+            border-radius: 10px;
+            border: none;
+            padding: 10px;
+            cursor: pointer; /* Show pointer cursor */
+            text-align: center; /* Center text */
+        }
+
+        .file-upload-form input[type="file"]:focus::before {
+            outline: none;
+        }
 
 /* Button Container */
 .button-container {
