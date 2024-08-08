@@ -171,7 +171,7 @@ body {
         box-sizing: border-box;
         text-align: center; /* Center file input text */
         cursor: pointer; /* Show pointer cursor */
-        transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+        transition: border-color 0.3s; /* Smooth transition for border color */
     }
 
         .file-upload-form input[type="file"]::-webkit-file-upload-button {
@@ -179,7 +179,7 @@ body {
         }
 
         .file-upload-form input[type="file"]::before {
-            content: 'Choose File'; /* Custom text */
+            content: 'Choose File'; /* Default custom text */
             display: inline-block;
             background: #F5F5F5;
             border-radius: 10px;
@@ -196,6 +196,34 @@ body {
             border-color: #5a5a5a; /* Highlighted border color */
         }
 
+        .file-upload-form input[type="file"]#uploadImageFile::before {
+            content: 'Select Image'; /* Custom text for the Upload Image form */
+        }
+
+        .file-upload-form input[type="file"]#uploadContractFile::before {
+            content: 'Select File'; /* Custom text for the Upload Contract form */
+        }
+
+        .file-upload-form input[type="file"].has-file::before {
+            content: attr(data-file-name); /* Show the file name when a file is selected */
+            background: #e0e0e0; /* Highlighted background color */
+            border-color: #28a745; /* Green border color */
+        }
+
+        .file-upload-form input[type="file"]::after {
+            content: attr(data-file-name); /* Display the selected file name */
+            display: block;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #333;
+            text-align: center;
+            visibility: hidden; /* Hide by default */
+        }
+
+        .file-upload-form input[type="file"].has-file::after {
+            visibility: visible; /* Show when a file is selected */
+        }
+
     /* File Upload Button */
     .file-upload-form button {
         background: #5A5A5A;
@@ -216,44 +244,6 @@ body {
             background: #444; /* Darker shade for highlight */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
         }
-
-    /* Feedback for Selected File */
-    .file-upload-form input[type="file"]::after {
-        content: attr(data-file-name); /* Use the custom attribute for file name */
-        display: block;
-        margin-top: 10px;
-        font-size: 12px;
-        color: #333;
-        text-align: center;
-        visibility: hidden; /* Hide by default */
-    }
-
-    .file-upload-form input[type="file"]:valid::after {
-        visibility: visible; /* Show when a file is selected */
-    }
-
-
-    /* File Upload Button */
-    .file-upload-form button {
-        background: #5A5A5A;
-        border: 1px solid #757575;
-        border-radius: 10px;
-        color: #F3F3F3;
-        font-weight: 700;
-        font-size: 14px;
-        padding: 12px 24px;
-        cursor: pointer;
-        text-align: center;
-        box-sizing: border-box;
-        transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
-    }
-
-        .file-upload-form button:hover,
-        .file-upload-form button:focus {
-            background: #444; /* Darker shade for highlight */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
-        }
-
 
 /* Container for Forms and Button */
 .forms-buttons-container {

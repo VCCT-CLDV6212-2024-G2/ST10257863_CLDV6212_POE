@@ -42,7 +42,7 @@ namespace CLDV_POE_Web_Application.Models
 
 		public CustomerProfile()
 		{
-			PartitionKey = "CustomerProfile";
+			PartitionKey = "ST10257863CustomerProfile";
 			RowKey = Guid.NewGuid().ToString();
 		}
 	}

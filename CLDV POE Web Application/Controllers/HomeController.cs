@@ -25,6 +25,11 @@ namespace CLDV_POE_Web_Application.Controllers
 			return View();
 		}
 
+		public IActionResult Privacy()
+		{
+			return View();
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> UploadImage(IFormFile file)
 		{

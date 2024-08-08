@@ -12,7 +12,7 @@
 	<h1>@ViewData["Title"]</h1>
 
 	<div class="center-frame">
-		<!--This is the frame that is centering all the content on the page-->
+
 		<!-- Profile Creation Section -->
 		<div class="frame-container profile-section">
 			<form asp-action="AddCustomerProfile" method="post">
@@ -42,11 +42,11 @@
 			<!-- File Upload Section -->
 			<div class="frame-container file-upload-section">
 				<form asp-action="UploadImage" method="post" enctype="multipart/form-data" class="file-upload-form">
-					<input type="file" name="file" />
-					<button type="submit" class="button">Upload Image</button>
+					<input type="file" name="file" id="uploadImageFile" />
+					<button type="submit" class="button">Upload Product Image</button>
 				</form>
 				<form asp-action="UploadContract" method="post" enctype="multipart/form-data" class="file-upload-form">
-					<input type="file" name="file" />
+					<input type="file" name="file" id="uploadContractFile" />
 					<button type="submit" class="button">Upload Contract</button>
 				</form>
 			</div>
@@ -64,5 +64,4 @@
 				</form>
 			</div>
 		</div>
-</body>
-</html>
+	</div>
