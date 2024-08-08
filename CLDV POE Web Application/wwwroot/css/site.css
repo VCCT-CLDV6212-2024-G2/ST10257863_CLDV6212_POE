@@ -232,4 +232,11 @@ body {
     text-align: center;
     box-sizing: border-box; /* Ensures padding and border are included in width */
     margin-top: 20px;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
+
+    .button:hover,
+    .button:focus {
+        background: #444; /* Darker shade for highlight */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    }
