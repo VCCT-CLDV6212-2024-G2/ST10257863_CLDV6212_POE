@@ -1,4 +1,4 @@
-/* Base font size adjustment based on screen width */
+/* Base Font Size Adjustment */
 html {
     font-size: 14px;
 }
@@ -9,42 +9,10 @@ html {
     }
 }
 
-/* Focus styles for interactive elements */
-.btn:focus,
-.btn:active:focus,
-.btn-link.nav-link:focus,
-.form-control:focus,
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 /* HTML and Body Styles */
 html {
     position: relative;
     min-height: 100%;
-}
-
-/* Navbar */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #333;
-    color: #FFF;
-    padding: 10px;
-    box-sizing: border-box;
-    z-index: 1000; /* Ensure navbar is above other content */
-}
-
-.footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f1f1f1; /* Adjust as needed */
-    padding: 10px;
-    text-align: left;
-    border-top: 1px solid #ddd; /* Optional border for visual separation */
 }
 
 body {
@@ -65,12 +33,46 @@ body {
         box-sizing: border-box;
     }
 
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #333;
+    color: #FFF;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 1000; /* Ensure navbar is above other content */
+}
+
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f1f1f1; /* Adjust as needed */
+    padding: 10px;
+    text-align: left;
+    border-top: 1px solid #ddd; /* Optional border for visual separation */
+}
+
+/* Focus Styles for Interactive Elements */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
 /* Center Frame Container */
 .center-frame {
     display: flex;
     justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    align-items: stretch; /* Ensure all child elements stretch to same height */
     height: 100%; /* Full height based on body */
+    gap: 32px;
 }
 
 /* Centered Container */
@@ -78,11 +80,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 68px 0; /* Removed side padding to fit exactly within the screen width */
-    gap: 20px;
+    gap: 32px;
     max-width: 500px;
     width: 100%; /* Ensures container width scales with its parent */
-    background: #F5F5F5;
+    height: 100%;
     border-radius: 10px;
     box-sizing: border-box;
 }
@@ -99,6 +100,26 @@ body {
     background: #F5F5F5;
     border-radius: 10px;
     box-sizing: border-box;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    gap: 20px;
+    background: #F5F5F5;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+/* File Upload Section */
+.file-upload-section {
+    display: flex;
+    flex-direction: row; /* Align forms horizontally */
+    gap: 20px;
+    width: 100%;
+    height: 100%;
 }
 
 /* Input Fields */
@@ -131,29 +152,6 @@ body {
         margin-top: 5px;
         box-sizing: border-box;
     }
-
-/* Container for Forms and Button */
-.forms-buttons-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 12px 24px;
-    gap: 20px; /* Space between forms and button */
-    width: 100%;
-    align-items: flex-start; /* Align forms and button to the top */
-}
-
-/* File Upload Container */
-.file-upload-container {
-    display: flex;
-    flex-direction: row; /* Align forms horizontally */
-    justify-content: center;
-    align-items: center;
-    padding: 12px 24px;
-    gap: 20px; /* Space between forms */
-    width: auto; /* Adjust width as needed */
-}
 
 /* File Upload Forms */
 .file-upload-form {
@@ -193,6 +191,18 @@ body {
         .file-upload-form input[type="file"]:focus::before {
             outline: none;
         }
+
+/* Container for Forms and Button */
+.forms-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 20px; /* Space between forms and button */
+    width: 100%;
+    align-items: flex-start; /* Align forms and button to the top */
+}
 
 /* Button Container */
 .button-container {

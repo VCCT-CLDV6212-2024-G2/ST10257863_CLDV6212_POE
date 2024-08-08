@@ -12,45 +12,57 @@
 	<h1>@ViewData["Title"]</h1>
 
 	<div class="center-frame">
-		<div class="frame-container">
-			<!-- Input Fields -->
-			<div class="input-field">
-				<label for="firstName">First Name</label>
-				<input type="text" id="firstName" name="firstName" placeholder="First Name">
-			</div>
-			<div class="input-field">
-				<label for="lastName">Last Name</label>
-				<input type="text" id="lastName" name="lastName" placeholder="Last Name">
-			</div>
-			<div class="input-field">
-				<label for="email">Email</label>
-				<input type="email" id="email" name="email" placeholder="Email">
-			</div>
-			<div class="input-field">
-				<label for="phoneNumber">Phone Number</label>
-				<input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number">
-			</div>
-
-			<!-- Container for Forms and Button -->
-			<div class="forms-buttons-container">
-				<!-- File Upload Forms -->
-				<div class="file-upload-container">
-					<!-- Form for Uploading an Image -->
-					<form asp-action="UploadImage" method="post" enctype="multipart/form-data" class="file-upload-form">
-						<input type="file" name="file" value="Select Image" />
-						<button type="submit" class="button">Upload Image</button>
-					</form>
-
-					<!-- Form for Uploading a Contract -->
-					<form asp-action="UploadContract" method="post" enctype="multipart/form-data" class="file-upload-form">
-						<input type="file" name="file" value="Select Contract" />
-						<button type="submit" class="button">Upload Contract</button>
-					</form>
+		<!--This is the frame that is centering all the content on the page-->
+		<!-- Profile Creation Section -->
+		<div class="frame-container profile-section">
+			<form asp-action="AddCustomerProfile" method="post">
+				<div class="input-field">
+					<label for="firstName">First Name</label>
+					<input type="text" id="firstName" name="FirstName" placeholder="First Name" />
 				</div>
-			</div>
-			<!-- Add Profile Button -->
-			<button class="button">Add Profile</button>
+				<div class="input-field">
+					<label for="lastName">Last Name</label>
+					<input type="text" id="lastName" name="LastName" placeholder="Last Name" />
+				</div>
+				<div class="input-field">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="Email" placeholder="Email" />
+				</div>
+				<div class="input-field">
+					<label for="phoneNumber">Phone Number</label>
+					<input type="text" id="phoneNumber" name="PhoneNumber" placeholder="Phone Number" />
+				</div>
+				<div class="button-container">
+					<button type="submit" class="button">Add Profile</button>
+				</div>
+			</form>
 		</div>
-	</div>
+
+		<div class="centered-container">
+			<!-- File Upload Section -->
+			<div class="frame-container file-upload-section">
+				<form asp-action="UploadImage" method="post" enctype="multipart/form-data" class="file-upload-form">
+					<input type="file" name="file" />
+					<button type="submit" class="button">Upload Image</button>
+				</form>
+				<form asp-action="UploadContract" method="post" enctype="multipart/form-data" class="file-upload-form">
+					<input type="file" name="file" />
+					<button type="submit" class="button">Upload Contract</button>
+				</form>
+			</div>
+
+			<!-- Order Processing Section -->
+			<div class="frame-container order-submit-section">
+				<form asp-action="ProcessOrder" method="post">
+					<div class="input-field">
+						<label for="orderId">Order ID</label>
+						<input type="text" id="orderId" name="orderId" placeholder="Order ID" />
+					</div>
+					<div class="button-container">
+						<button type="submit" class="button">Process Order</button>
+					</div>
+				</form>
+			</div>
+		</div>
 </body>
 </html>
