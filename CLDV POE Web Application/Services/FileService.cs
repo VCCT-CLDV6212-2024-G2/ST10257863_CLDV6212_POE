@@ -4,16 +4,16 @@ namespace CLDV_POE_Web_Application.Services
 {
 	public class FileService
 	{
-		private readonly ShareServiceClient _shareServiceClient;
+		private readonly ShareServiceClient st10257863fileservice;
 
 		public FileService(IConfiguration configuration)
 		{
-			_shareServiceClient = new ShareServiceClient(configuration["AzureStorage:ConnectionString"]);
+			st10257863fileservice = new ShareServiceClient(configuration["AzureStorage:ConnectionString"]);
 		}
 
 		public async Task UploadFileAsync(string shareName, string fileName, Stream content)
 		{
-			var shareClient = _shareServiceClient.GetShareClient(shareName);
+			var shareClient = st10257863fileservice.GetShareClient(shareName);
 			await shareClient.CreateIfNotExistsAsync();
 			var directoryClient = shareClient.GetRootDirectoryClient();
 			var fileClient = directoryClient.GetFileClient(fileName);

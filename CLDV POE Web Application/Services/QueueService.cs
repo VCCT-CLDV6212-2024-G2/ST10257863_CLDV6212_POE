@@ -4,16 +4,16 @@ namespace CLDV_POE_Web_Application.Services
 {
 	public class QueueService
 	{
-		private readonly QueueServiceClient _queueServiceClient;
+		private readonly QueueServiceClient st10257864queueservice;
 
 		public QueueService(IConfiguration configuration)
 		{
-			_queueServiceClient = new QueueServiceClient(configuration["AzureStorage:ConnectionString"]);
+			st10257864queueservice = new QueueServiceClient(configuration["AzureStorage:ConnectionString"]);
 		}
 
 		public async Task SendMessageAsync(string queueName, string message)
 		{
-			var queueClient = _queueServiceClient.GetQueueClient(queueName);
+			var queueClient = st10257864queueservice.GetQueueClient(queueName);
 			await queueClient.CreateIfNotExistsAsync();
 			await queueClient.SendMessageAsync(message);
 		}
