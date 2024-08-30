@@ -36,7 +36,7 @@ namespace CLDV_POE_Web_Application.Controllers
 			if (file != null)
 			{
 				using var stream = file.OpenReadStream();
-				await _blobService.UploadBlobAsync("product-images", file.FileName, stream);
+				await _blobService.UploadBlobAsync("st10257864blobservice", file.FileName, stream);
 			}
 			return RedirectToAction("Index");
 		}
@@ -54,7 +54,7 @@ namespace CLDV_POE_Web_Application.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ProcessOrder(string orderId)
 		{
-			await _queueService.SendMessageAsync("order-processing", $"Processing order {orderId}");
+			await _queueService.SendMessageAsync("st10257864queueservice", $"Processing order {orderId}");
 			return RedirectToAction("Index");
 		}
 
@@ -64,7 +64,7 @@ namespace CLDV_POE_Web_Application.Controllers
 			if (file != null)
 			{
 				using var stream = file.OpenReadStream();
-				await _fileService.UploadFileAsync("contracts-logs", file.FileName, stream);
+				await _fileService.UploadFileAsync("st10257864fileservice", file.FileName, stream);
 			}
 			return RedirectToAction("Index");
 		}
