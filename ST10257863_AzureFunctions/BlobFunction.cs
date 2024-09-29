@@ -13,7 +13,7 @@ namespace ST10257863.Functions
 			[HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
 			ILogger log)
 		{
-			string containerName = req.Query["containerName"];
+			string containerName = "st10257863blobstorage";
 			string blobName = req.Query["blobName"];
 
 			if (string.IsNullOrEmpty(containerName) || string.IsNullOrEmpty(blobName))
@@ -21,7 +21,7 @@ namespace ST10257863.Functions
 				return new BadRequestObjectResult("Container name and blob name must be provided.");
 			}
 
-			var connectionString = Environment.GetEnvironmentVariable("AzureStorage:ConnectionString");
+			var connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
 			var blobServiceClient = new BlobServiceClient(connectionString);
 			var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 			await containerClient.CreateIfNotExistsAsync();

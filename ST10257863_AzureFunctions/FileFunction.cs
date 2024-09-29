@@ -13,7 +13,7 @@ namespace ST10257863.Functions
 			[HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
 			ILogger log)
 		{
-			string shareName = req.Query["shareName"];
+			string shareName = "st10257863fileshare";
 			string fileName = req.Query["fileName"];
 
 			if (string.IsNullOrEmpty(shareName) || string.IsNullOrEmpty(fileName))
@@ -21,18 +21,26 @@ namespace ST10257863.Functions
 				return new BadRequestObjectResult("Share name and file name must be provided.");
 			}
 
-			var connectionString = Environment.GetEnvironmentVariable("AzureStorage:ConnectionString");
-			var shareServiceClient = new ShareServiceClient(connectionString);
-			var shareClient = shareServiceClient.GetShareClient(shareName);
-			await shareClient.CreateIfNotExistsAsync();
-			var directoryClient = shareClient.GetRootDirectoryClient();
-			var fileClient = directoryClient.GetFileClient(fileName);
+			try
+			{
+				var connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+				var shareServiceClient = new ShareServiceClient(connectionString);
+				var shareClient = shareServiceClient.GetShareClient(shareName);
+				await shareClient.CreateIfNotExistsAsync();
+				var directoryClient = shareClient.GetRootDirectoryClient();
+				var fileClient = directoryClient.GetFileClient(fileName);
 
-			using var stream = req.Body;
-			await fileClient.CreateAsync(stream.Length);
-			await fileClient.UploadAsync(stream);
+				using var stream = req.Body;
+				await fileClient.CreateAsync(stream.Length);
+				await fileClient.UploadAsync(stream);
 
-			return new OkObjectResult("File uploaded to Azure Files");
+				return new OkObjectResult("File uploaded to Azure Files successfully.");
+			}
+			catch (Exception ex)
+			{
+				log.LogError(ex, "Error uploading file");
+				return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+			}
 		}
 	}
 }

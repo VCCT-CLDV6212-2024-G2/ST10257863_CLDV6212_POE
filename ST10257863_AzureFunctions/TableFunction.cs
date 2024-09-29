@@ -13,7 +13,7 @@ namespace ST10257863.Functions
 			[HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
 			ILogger log)
 		{
-			string tableName = req.Query["tableName"];
+			string tableName = "st10257863tablesservice";
 			string partitionKey = req.Query["partitionKey"];
 			string rowKey = req.Query["rowKey"];
 			string data = req.Query["data"];
@@ -23,7 +23,7 @@ namespace ST10257863.Functions
 				return new BadRequestObjectResult("Table name, partition key, row key, and data must be provided.");
 			}
 
-			var connectionString = Environment.GetEnvironmentVariable("AzureStorage:ConnectionString");
+			var connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
 			var serviceClient = new TableServiceClient(connectionString);
 			var tableClient = serviceClient.GetTableClient(tableName);
 			await tableClient.CreateIfNotExistsAsync();

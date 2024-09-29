@@ -13,7 +13,7 @@ namespace ST10257863.Functions
 			[HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
 			ILogger log)
 		{
-			string queueName = req.Query["queueName"];
+			string queueName = "st10257863queueservice";
 			string message = req.Query["message"];
 
 			if (string.IsNullOrEmpty(queueName) || string.IsNullOrEmpty(message))
@@ -21,7 +21,7 @@ namespace ST10257863.Functions
 				return new BadRequestObjectResult("Queue name and message must be provided.");
 			}
 
-			var connectionString = Environment.GetEnvironmentVariable("AzureStorage:ConnectionString");
+			var connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
 			var queueServiceClient = new QueueServiceClient(connectionString);
 			var queueClient = queueServiceClient.GetQueueClient(queueName);
 			await queueClient.CreateIfNotExistsAsync();
