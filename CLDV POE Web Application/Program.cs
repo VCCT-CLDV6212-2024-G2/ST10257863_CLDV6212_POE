@@ -15,6 +15,9 @@ public class Program
 		builder.Services.AddSingleton<QueueService>();
 		builder.Services.AddSingleton<FileService>();
 
+		// Register IHttpClientFactory
+		builder.Services.AddHttpClient();
+
 		var app = builder.Build();
 
 		// Configure the HTTP request pipeline.
