@@ -4,11 +4,11 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace ST10114423.Functions
+namespace ST10257863.Functions
 {
-	public static class UploadBlob
+	public static class BlobFunction
 	{
-		[Function("UploadBlob")]
+		[Function("BlobFunction")]
 		public static async Task<IActionResult> Run(
 			[HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
 			ILogger log)

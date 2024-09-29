@@ -3,12 +3,12 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.DependencyInjection;
 
 var host = new HostBuilder()
-	.ConfigureFunctionsWebApplication()
+	.ConfigureFunctionsWebApplication() // This should work with the right packages
 	.ConfigureServices(services =>
 	{
 		services.AddApplicationInsightsTelemetryWorkerService();
 		services.ConfigureFunctionsApplicationInsights();
-
+		// Register any services your application needs
 	})
 	.ConfigureWebJobs(b =>
 	{
