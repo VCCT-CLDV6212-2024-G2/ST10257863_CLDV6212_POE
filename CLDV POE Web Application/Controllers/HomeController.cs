@@ -20,17 +20,18 @@ namespace CLDV_POE_Web_Application.Controllers
 		private readonly FileService _fileService;
 
 		public HomeController(
-			IHttpClientFactory httpClientFactory, // Inject IHttpClientFactory
-			BlobService blobService,
-			TableService tableService,
-			QueueService queueService,
-			FileService fileService)
+			IHttpClientFactory httpClientFactory//, // Inject IHttpClientFactory
+												//BlobService blobService,
+												//TableService tableService,
+												//QueueService queueService,
+												//FileService fileService
+			)
 		{
 			_httpClientFactory = httpClientFactory;
-			_blobService = blobService;
-			_tableService = tableService;
-			_queueService = queueService;
-			_fileService = fileService;
+			//_blobService = blobService;
+			//_tableService = tableService;
+			//_queueService = queueService;
+			//_fileService = fileService;
 		}
 
 		public IActionResult Index()
@@ -146,7 +147,7 @@ namespace CLDV_POE_Web_Application.Controllers
 				string fileName = file.FileName;
 
 				// Construct the URL with the necessary query parameter for the file name
-				string url = $"https://st10257863functionapp.azurewebsites.net/api/FileFunction?code=s3vUM0zqORkiDMBoNJmX3GZnxckfv8rRSomCw9_5fGujAzFuA-vecw%3D%3D&fileName={fileName}";
+				string url = $"https://st10257863functionsapp.azurewebsites.net/api/FileFunction?code=QKG8YLt5hg5HAJqEFwXbtfAcsUbVw-G4EWa4TlNmcuRQAzFuAJFBRg%3D%3D&fileName={fileName}";
 
 				// Send the POST request
 				var response = await httpClient.PostAsync(url, content);
