@@ -1,138 +1,96 @@
 using CLDV_POE_Web_Application.Models;
-using CLDV_POE_Web_Application.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Diagnostics;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CLDV_POE_Web_Application.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly IHttpClientFactory _httpClientFactory; // Declare the HttpClient factory
-		private readonly BlobService _blobService;
-		private readonly TableService _tableService;
-		private readonly QueueService _queueService;
-		private readonly FileService _fileService;
+		// Declare the HttpClientFactory to manage HTTP requests
+		private readonly IHttpClientFactory _httpClientFactory;
 
-		public HomeController(
-			IHttpClientFactory httpClientFactory//, // Inject IHttpClientFactory
-												//BlobService blobService,
-												//TableService tableService,
-												//QueueService queueService,
-												//FileService fileService
-			)
+		// Constructor to inject necessary services
+		public HomeController(IHttpClientFactory httpClientFactory)
 		{
 			_httpClientFactory = httpClientFactory;
-			//_blobService = blobService;
-			//_tableService = tableService;
-			//_queueService = queueService;
-			//_fileService = fileService;
 		}
 
+		// Default action to load the home page
 		public IActionResult Index()
 		{
 			return View();
 		}
 
+		// Action to load the Privacy page
 		public IActionResult Privacy()
 		{
 			return View();
 		}
 
+		// Private method to construct URLs
+		private string BuildUrl(string functionName, string code, params (string key, string value)[] parameters)
+		{
+			var baseUrl = $"https://st10257863functionsapp.azurewebsites.net/api/{functionName}?code={code}";
+			foreach (var param in parameters)
+			{
+				// URI escape each value and append as a query parameter
+				baseUrl += $"&{param.key}={Uri.EscapeDataString(param.value)}";
+			}
+			return baseUrl;
+		}
+
+		// Action to handle image upload and send it to Blob Storage via HTTP POST request
 		[HttpPost]
 		public async Task<IActionResult> UploadImage(IFormFile file)
 		{
 			if (file != null)
 			{
 				using var stream = file.OpenReadStream();
-				using var httpClient = _httpClientFactory.CreateClient(); // Use injected HttpClientFactory
+				using var httpClient = _httpClientFactory.CreateClient();
 				using var content = new StreamContent(stream);
 				content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
 				// Use the file name as the blob name
-				string blobName = file.FileName;
+				string blobName = file.FileName; // No need to escape here; it will be done in the URL
 
-				// Construct the URL with the necessary query parameter for the blob name
-				string url = $"https://st10257863functionsapp.azurewebsites.net/api/BlobFunction?code=tNd41756lZfQe_rT8x2B-5FrUJEqPIUt9Lgn9kUj7SmhAzFu5_iQGA%3D%3D&blobName={blobName}";
+				// URL for the BlobFunction in Azure Functions
+				string url = BuildUrl("BlobFunction", "tNd41756lZfQe_rT8x2B-5FrUJEqPIUt9Lgn9kUj7SmhAzFu5_iQGA%3D%3D",
+					("blobName", blobName));
 
-				// Send the POST request
+				// Send the POST request to upload the image
 				var response = await httpClient.PostAsync(url, content);
 
 				if (response.IsSuccessStatusCode)
 				{
-					// Handle success (optional logging or user feedback)
+					// Handle successful upload, e.g., logging or feedback
 				}
 			}
 			return RedirectToAction("Index");
 		}
 
-
-		[HttpPost]
-		public async Task<IActionResult> AddCustomerProfile(CustomerProfile profile)
-		{
-			if (ModelState.IsValid)
-			{
-				using var httpClient = _httpClientFactory.CreateClient();
-
-				// Use the properties from the profile to build the data for Azure Table Storage
-				string partitionKey = profile.PartitionKey; // Example: could be a derived value
-				string rowKey = profile.RowKey;             // Example: could be a derived value
-				string data = JsonConvert.SerializeObject(new
-				{
-					profile.FirstName,
-					profile.LastName,
-					profile.Email,
-					profile.PhoneNumber
-				});
-
-				// Construct the URL with the necessary query parameters
-				string url = $"https://st10257863functionsapp.azurewebsites.net/api/TableFunction?code=clrEXRJAKcqkLJWq3IVvOCL99RwMk7lrEPnZfZsYywqWAzFuS04tOg%3D%3D&partitionKey={partitionKey}&rowKey={rowKey}&data={data}";
-
-				// Send the POST request
-				var response = await httpClient.PostAsync(url, null);
-
-				if (response.IsSuccessStatusCode)
-				{
-					// Handle success (optional logging or user feedback)
-				}
-				else
-				{
-					// Optionally handle the error response
-				}
-			}
-			return RedirectToAction("Index");
-		}
-
-
+		// Action to process an order by sending it to a queue via HTTP POST request
 		[HttpPost]
 		public async Task<IActionResult> ProcessOrder(string orderId)
 		{
 			using var httpClient = _httpClientFactory.CreateClient();
 
-			// Prepare the URL with the query parameter for the message
-			string url = $"https://st10257863functionsapp.azurewebsites.net/api/QueueFunction?code=SxRdtuPfdjzMFcoxx9nlbsaSYVDqjLo_7iWLAXuL9SxLAzFugtp3Aw%3D%3D&message={orderId}";
+			// URL for the QueueFunction in Azure Functions with the order ID
+			string url = BuildUrl("QueueFunction", "SxRdtuPfdjzMFcoxx9nlbsaSYVDqjLo_7iWLAXuL9SxLAzFugtp3Aw%3D%3D",
+				("message", $"OrderID: {orderId}")); // The message is also escaped
 
-			// Send the POST request
+			// Send the POST request to process the order
 			var response = await httpClient.PostAsync(url, null);
 
 			if (response.IsSuccessStatusCode)
 			{
-				// Handle success (optional logging or user feedback)
-			}
-			else
-			{
-				// Optionally handle the error response
+				// Handle successful order processing
 			}
 
+			// Redirect to Index after processing the order
 			return RedirectToAction("Index");
 		}
 
-
+		// Action to upload contract files via HTTP POST request
 		[HttpPost]
 		public async Task<IActionResult> UploadContract(IFormFile file)
 		{
@@ -146,19 +104,65 @@ namespace CLDV_POE_Web_Application.Controllers
 				// Use the file name as the file name parameter
 				string fileName = file.FileName;
 
-				// Construct the URL with the necessary query parameter for the file name
-				string url = $"https://st10257863functionsapp.azurewebsites.net/api/FileFunction?code=QKG8YLt5hg5HAJqEFwXbtfAcsUbVw-G4EWa4TlNmcuRQAzFuAJFBRg%3D%3D&fileName={fileName}";
+				// URL for the FileFunction in Azure Functions
+				string url = BuildUrl("FileFunction", "QKG8YLt5hg5HAJqEFwXbtfAcsUbVw-G4EWa4TlNmcuRQAzFuAJFBRg%3D%3D",
+					("fileName", fileName));
 
-				// Send the POST request
+				// Send the POST request to upload the contract file
 				var response = await httpClient.PostAsync(url, content);
 
 				if (response.IsSuccessStatusCode)
 				{
-					// Handle success (optional logging or user feedback)
+					// Handle successful upload
 				}
 			}
+
+			// Redirect to Index after uploading the contract
 			return RedirectToAction("Index");
 		}
 
+		// Action to add customer profile details to Azure Table Storage via HTTP POST request
+		[HttpPost]
+		public async Task<IActionResult> AddCustomerProfile(CustomerProfile profile)
+		{
+			if (ModelState.IsValid) // Check if the submitted profile is valid
+			{
+				using var httpClient = _httpClientFactory.CreateClient();
+
+				// Build the query parameters from the customer profile
+				string partitionKey = profile.PartitionKey;
+				string rowKey = profile.RowKey;
+				string firstName = profile.FirstName;
+				string lastName = profile.LastName;
+				string email = profile.Email;
+				string phoneNumber = profile.PhoneNumber;
+
+				// URL for the TableFunction in Azure Functions
+				string url = BuildUrl("TableFunction", "clrEXRJAKcqkLJWq3IVvOCL99RwMk7lrEPnZfZsYywqWAzFuS04tOg%3D%3D",
+					("partitionKey", partitionKey),
+					("rowKey", rowKey),
+					("firstName", firstName),
+					("lastName", lastName),
+					("email", email),
+					("phoneNumber", phoneNumber));
+
+				// Send the POST request to add the profile
+				var response = await httpClient.PostAsync(url, null);
+
+				if (response.IsSuccessStatusCode)
+				{
+					// Handle success and redirect to Index
+					return RedirectToAction("Index");
+				}
+				else
+				{
+					// Handle failure by adding an error message
+					ModelState.AddModelError(string.Empty, "Failed to add the customer profile.");
+				}
+			}
+
+			// If model validation fails, return the same view with the model
+			return View(profile);
+		}
 	}
 }
