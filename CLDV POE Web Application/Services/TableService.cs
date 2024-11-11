@@ -17,9 +17,9 @@ namespace CLDV_POE_Web_Application.Services
 			st10257863TableService.CreateIfNotExists();
 		}
 
-		public async Task AddEntityAsync(CustomerProfile profile)
-		{
-			await st10257863TableService.AddEntityAsync(profile);
-		}
+		//public async Task AddEntityAsync(CustomerProfile profile)
+		//{
+		//	await st10257863TableService.AddEntityAsync(profile);
+		//}
 	}
 }
