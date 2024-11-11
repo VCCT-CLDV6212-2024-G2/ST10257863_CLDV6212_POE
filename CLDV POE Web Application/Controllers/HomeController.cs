@@ -1,4 +1,4 @@
-using CLDV_POE_Web_Application.Models;
+using CLDV_POE_Web_Application.Models.Tables;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 
@@ -127,38 +127,38 @@ namespace CLDV_POE_Web_Application.Controllers
 		{
 			if (ModelState.IsValid) // Check if the submitted profile is valid
 			{
-				using var httpClient = _httpClientFactory.CreateClient();
+				//using var httpClient = _httpClientFactory.CreateClient();
 
-				// Build the query parameters from the customer profile
-				string partitionKey = profile.PartitionKey;
-				string rowKey = profile.RowKey;
-				string firstName = profile.FirstName;
-				string lastName = profile.LastName;
-				string email = profile.Email;
-				string phoneNumber = profile.PhoneNumber;
+				//// Build the query parameters from the customer profile
+				//string partitionKey = profile.PartitionKey;
+				//string rowKey = profile.RowKey;
+				//string firstName = profile.FirstName;
+				//string lastName = profile.LastName;
+				//string email = profile.Email;
+				//string phoneNumber = profile.PhoneNumber;
 
-				// URL for the TableFunction in Azure Functions
-				string url = BuildUrl("TableFunction", "clrEXRJAKcqkLJWq3IVvOCL99RwMk7lrEPnZfZsYywqWAzFuS04tOg%3D%3D",
-					("partitionKey", partitionKey),
-					("rowKey", rowKey),
-					("firstName", firstName),
-					("lastName", lastName),
-					("email", email),
-					("phoneNumber", phoneNumber));
+				//// URL for the TableFunction in Azure Functions
+				//string url = BuildUrl("TableFunction", "clrEXRJAKcqkLJWq3IVvOCL99RwMk7lrEPnZfZsYywqWAzFuS04tOg%3D%3D",
+				//	("partitionKey", partitionKey),
+				//	("rowKey", rowKey),
+				//	("firstName", firstName),
+				//	("lastName", lastName),
+				//	("email", email),
+				//	("phoneNumber", phoneNumber));
 
-				// Send the POST request to add the profile
-				var response = await httpClient.PostAsync(url, null);
+				//// Send the POST request to add the profile
+				//var response = await httpClient.PostAsync(url, null);
 
-				if (response.IsSuccessStatusCode)
-				{
-					// Handle success and redirect to Index
-					return RedirectToAction("Index");
-				}
-				else
-				{
-					// Handle failure by adding an error message
-					ModelState.AddModelError(string.Empty, "Failed to add the customer profile.");
-				}
+				//if (response.IsSuccessStatusCode)
+				//{
+				//	// Handle success and redirect to Index
+				//	return RedirectToAction("Index");
+				//}
+				//else
+				//{
+				//	// Handle failure by adding an error message
+				//	ModelState.AddModelError(string.Empty, "Failed to add the customer profile.");
+				//}
 			}
 
 			// If model validation fails, return the same view with the model
