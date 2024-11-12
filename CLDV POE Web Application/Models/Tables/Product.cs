@@ -9,11 +9,13 @@ namespace CLDV_POE_Web_Application.Models.Tables
 		{
 			get; set;
 		}
+
 		[Required]
 		public string Name
 		{
 			get; set;
 		}
+
 		[Required]
 		public decimal Price
 		{

@@ -9,15 +9,23 @@ namespace CLDV_POE_Web_Application.Models.Tables
 		{
 			get; set;
 		} // Primary Key
+
+		[Required]
+		public string OrderNumber
+		{
+			get; set;
+		}
+
 		[Required]
 		public DateTime OrderDate
 		{
 			get; set;
 		}
+
 		[Required]
 		public string Status
 		{
 			get; set;
-		} // e.g., Pending, Completed
+		} = "pending"; // e.g., Pending, Completed. Default state is pending
 	}
 }

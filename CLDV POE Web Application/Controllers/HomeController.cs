@@ -159,9 +159,9 @@ namespace CLDV_POE_Web_Application.Controllers
 
 		// Action to add an order to the database
 		[HttpPost]
-		public async Task<IActionResult> ProcessOrder(string orderId)
+		public async Task<IActionResult> ProcessOrder(string orderNumber)
 		{
-			if (string.IsNullOrWhiteSpace(orderId))
+			if (string.IsNullOrWhiteSpace(orderNumber))
 			{
 				_logger.LogWarning("Order ID cannot be empty.");
 				return RedirectToAction("Index");
@@ -172,6 +172,7 @@ namespace CLDV_POE_Web_Application.Controllers
 				// Create a new Order and set the status to Pending
 				var newOrder = new Order
 				{
+					OrderNumber = orderNumber,
 					OrderDate = DateTime.Now,
 					Status = "Pending"
 				};
